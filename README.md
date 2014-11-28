@@ -50,6 +50,10 @@ The view automatically determines the ideal region to display based on the maxim
 
 More configuration options are available via the delegate protocol `MCGraphViewDelegate`. See the demo project for details.
 
+## Credits
+
+Inspired by [GraphKit](https://github.com/michalkonturek/GraphKit) and [BEMSimpleLineGraph](https://github.com/Boris-Em/BEMSimpleLineGraph).
+
 ## License
 
 MCGraphView is under the MIT license.
