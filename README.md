@@ -7,7 +7,7 @@ MCGraphView ![License MIT](https://go-shields.herokuapp.com/license-MIT-blue.png
 A light-weight solution for displaying graphs.
 
 ##Screenshot
-![Screenshot](https://raw.github.com/matthewcheok/MCBlurredModalController/master/MCGraphViewDemo.gif "Example of MCGraphView")
+![Screenshot](https://raw.github.com/matthewcheok/MCGraphView/master/MCGraphViewDemo.gif "Example of MCGraphView")
 
 ## Installation
 
