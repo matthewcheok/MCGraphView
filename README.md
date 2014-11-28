@@ -46,6 +46,12 @@ self.graphView.lineData = @[
 ];
 ```
 
+Then tell the view to reload data:
+
+```
+[self.graphView reloadDataAnimated:YES];
+```
+
 The view automatically determines the ideal region to display based on the maximum and minimum values of your points.
 
 More configuration options are available via the delegate protocol `MCGraphViewDelegate`. See the demo project for details.
