@@ -87,7 +87,6 @@ static CGFloat kDefaultAnimationInterval = 0.3;
 		return;
 	}
 
-
 	if (animated) {
         self.reloading = YES;
         
@@ -108,6 +107,32 @@ static CGFloat kDefaultAnimationInterval = 0.3;
 	else {
 		[self _populateData];
 	}
+}
+
+- (void)clear {
+    [self clearAnimated:NO];
+}
+
+- (void)clearAnimated:(BOOL)animated {
+    if (self.reloading) {
+        return;
+    }
+    
+    if (animated && self.lineLayers.count > 0) {
+        self.reloading = YES;
+        
+        NSTimeInterval duration = kDefaultAnimationDuration +  (self.lineLayers.count-1) * kDefaultAnimationInterval;
+        [self _animateLinesToVisible:NO];
+        
+        __weak typeof(self) weakSelf = self;
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, duration * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
+            typeof(self) strongSelf = weakSelf;
+            [strongSelf _reset];
+        });
+    }
+    else {
+        [self _reset];
+    }
 }
 
 // MARK: Private
@@ -149,16 +174,18 @@ static CGFloat kDefaultAnimationInterval = 0.3;
 }
 
 - (void)_reset {
-	self.layer.sublayers = nil;
-	[self.lineLayers removeAllObjects];
-
-	for (UILabel *label in self.verticalAxisLabels) {
-		[label removeFromSuperview];
-	}
-
-	for (UILabel *label in self.horizontalAxisLabels) {
-		[label removeFromSuperview];
-	}
+    for (UILabel *label in self.verticalAxisLabels) {
+        [label removeFromSuperview];
+    }
+    self.verticalAxisLabels = nil;
+    
+    for (UILabel *label in self.horizontalAxisLabels) {
+        [label removeFromSuperview];
+    }
+    self.horizontalAxisLabels = nil;
+    
+    self.layer.sublayers = nil;
+    [self.lineLayers removeAllObjects];
 }
 
 - (void)_computeAxes {
@@ -345,9 +372,11 @@ static CGFloat kDefaultAnimationInterval = 0.3;
         
         if (visible) {
             animation = [self _animationWithKeyPath:@"strokeEnd"];
+            layer.strokeEnd = 1;
         }
         else {
             animation = [self _animationWithKeyPath:@"strokeStart"];
+            layer.strokeStart = 1;
         }
         
         animation.duration += kDefaultAnimationInterval * i;
@@ -494,8 +523,6 @@ static CGFloat kDefaultAnimationInterval = 0.3;
 	animation.duration = kDefaultAnimationDuration;
 	animation.fromValue = @(0);
 	animation.toValue = @(1);
-    animation.removedOnCompletion = NO;
-    animation.fillMode = kCAFillModeBoth;
 	return animation;
 }
 

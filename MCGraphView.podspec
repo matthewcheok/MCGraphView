@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name     = 'MCGraphView'
-  s.version  = '0.1.0'
+  s.version  = '0.1.1'
   s.ios.deployment_target   = '6.0'
   s.license  = { :type => 'MIT', :file => 'LICENSE' }
   s.summary  = 'A light-weight solution for displaying graphs.'

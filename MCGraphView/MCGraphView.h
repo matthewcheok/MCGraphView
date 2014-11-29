@@ -58,4 +58,7 @@ typedef NS_ENUM(NSInteger, MCGraphViewPointStyle) {
 - (void)reloadData;
 - (void)reloadDataAnimated:(BOOL)animated;
 
+- (void)clear;
+- (void)clearAnimated:(BOOL)animated;
+
 @end
